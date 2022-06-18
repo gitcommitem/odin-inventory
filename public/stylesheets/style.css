@@ -1,8 +1,69 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  min-height: 100vh;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+.grid {
+  display: grid;
+}
+
+.hflex {
+  display: flex;
+}
+
+nav.hflex {
+  background: slategray;
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div.grid {
+  grid-template-columns: 0.6fr 5fr;
+}
+
+section#sidebar {
+  background-color: whitesmoke;
+  grid-column: 1/2;
+  min-height: 100vh;
+}
+
+section#item-viewer {
+  grid-column: 2/3;
+}
+
+.button-link {
+  background-color: darkorange;
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+  color: black;
+  text-decoration: none;
+}
+
+div.item {
+  margin-left: 2rem;
+  gap: 1.5rem;
+}
+
+hr {
+  opacity: 0.2;
+}
+
+img {
+  background-color: whitesmoke;
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  line-height: 12;
 }

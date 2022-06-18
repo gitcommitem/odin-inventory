@@ -1,2 +1,43 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<nav class="hflex">
+  <h1>Inventory Dashboard</h1>
+  <div>
+  <a href="" class="button-link">Add Category</a>
+  <a href="" class="button-link">Add Item</a>
+  </div>
+</nav>
+
+<div class="grid">
+<section id="sidebar">
+  <ul>
+    <li>All</li>
+    {{#each categories}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ul>
+</section>
+
+<section id="item-viewer">
+  <h1>Viewing All</h1>
+  <h2>Viewing 3 out of {{number_of_items}} items</h2>
+  
+  {{#each items}}
+  <div class="item hflex">
+    <div>
+      <img src="{{this.imgsrc}}" alt="{{this.imgalt}}">
+    </div>
+    <div>
+ <p>Product Name: {{this.productname}}</p>
+    <p>ID: {{this.id}}</p>
+    <p>Category: {{this.category}}</p>
+    <p>Price: {{this.price}}</p>
+    <p>Stock: {{this.stock}}</p>
+    </div>
+   
+  </div>
+  <hr>
+  {{else}}
+  <p>No items to display.</p>
+  {{/each}}
+</section>
+</div>
+
