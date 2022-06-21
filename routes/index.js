@@ -1,45 +1,29 @@
 var express = require('express');
 var router = express.Router();
 
-const categories = ['category 1', 'category 2'];
-const items = [
+const metrics = [
   {
-    productname: 'item name',
-    id: '12345',
-    category: 'category 1',
-    price: '$5.00',
-    stock: 99,
-    imgsrc: '/',
-    imgalt: 'no image'
+    label: 'Number of Items',
+    count: 10
   },
   {
-    productname: 'item name',
-    id: '12345',
-    category: 'category 1',
-    price: '$5.00',
-    stock: 99,
-    imgsrc: '/',
-    imgalt: 'no image'
+    label: 'Low Stock Items',
+    count: 3
   },
   {
-    productname: 'item name',
-    id: '12345',
-    category: 'category 1',
-    price: '$5.00',
-    stock: 99,
-    imgsrc: '/',
-    imgalt: 'no image'
+    label: 'Out of Stock Items',
+    count: 2
+  },
+  {
+    label: 'Number of Categories',
+    count: 5
   }
 ];
-
-const itemsLength = items.length;
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', {
-    categories: categories,
-    items: items,
-    number_of_items: itemsLength
+    metrics: metrics
   });
 });
 

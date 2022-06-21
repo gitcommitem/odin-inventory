@@ -1,43 +1,27 @@
-<nav class="hflex">
-  <h1>Inventory Dashboard</h1>
-  <div>
-  <a href="" class="button-link">Add Category</a>
-  <a href="" class="button-link">Add Item</a>
+<nav>
+  <div class="hflex" id="nav-cont">
+    <h1>Inventory Management</h1>
+    <div id="search-cont">
+    <form action="" class="search">
+      <input type="text"/>
+      <button type="submit">Search</button>
+    </form>
+    </div>
+    <ul class="hflex">
+      <li><a class="active-tab" href="/">Dashboard</a></li>
+      <li><a href="/inventory">Inventory</a></li>
+    </ul>
   </div>
 </nav>
 
-<div class="grid">
-<section id="sidebar">
-  <ul>
-    <li>All</li>
-    {{#each categories}}
-    <li>{{this}}</li>
-    {{/each}}
-  </ul>
-</section>
-
-<section id="item-viewer">
-  <h1>Viewing All</h1>
-  <h2>Viewing 3 out of {{number_of_items}} items</h2>
-  
-  {{#each items}}
-  <div class="item hflex">
-    <div>
-      <img src="{{this.imgsrc}}" alt="{{this.imgalt}}">
-    </div>
-    <div>
- <p>Product Name: {{this.productname}}</p>
-    <p>ID: {{this.id}}</p>
-    <p>Category: {{this.category}}</p>
-    <p>Price: {{this.price}}</p>
-    <p>Stock: {{this.stock}}</p>
-    </div>
-   
-  </div>
-  <hr>
-  {{else}}
-  <p>No items to display.</p>
-  {{/each}}
-</section>
+<section class="hflex" id="dashboard">
+{{#each metrics}}
+<div class="card">
+  <p>{{this.label}}</p>
+  <p class="count">{{this.count}}</p>
 </div>
+{{else}}
+<p>Not able to load metrics.</p>
+{{/each}}
+</section>
 

@@ -1,0 +1,60 @@
+<nav>
+  <div class="hflex" id="nav-cont">
+    <h1>Inventory Management</h1>
+    <div id="search-cont">
+    <form action="" class="search">
+      <input type="text"/>
+      <button type="submit">Search</button>
+    </form>
+    </div>
+    <ul class="hflex">
+      <li><a href="/">Dashboard</a></li>
+      <li><a class="active-tab" href="/inventory">Inventory</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="hflex">
+<section id="sidebar">
+  <ul class="stack">
+    <li><a class="button-link" href="new-category">Add new category</a></li>
+    <li><a class="button-link" href="new-item">Add new item</a></li>
+  </ul>
+
+  <ul>
+    <li>All</li>
+    {{#each categories}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ul>
+</section>
+
+<section id="item-viewer">
+
+
+  <h1>Viewing {{currentCategory}}</h1>
+  <h2>Viewing 3 out of {{number_of_items}} items</h2>
+  
+  {{#each items}}
+  <div class="item hflex">
+    <div>
+      <img src="{{this.imgsrc}}" alt="{{this.imgalt}}">
+    </div>
+    <div>
+ <p>Product Name: {{this.productname}}</p>
+    <p>ID: {{this.id}}</p>
+    <p>Category: {{this.category}}</p>
+    <p>Price: {{this.price}}</p>
+    <p>Stock: {{this.stock}}</p>
+    <a href="">Edit</a>
+       <a href="">Delete</a>
+    </div>
+   
+  </div>
+  <hr>
+  {{else}}
+  <p>No items to display.</p>
+  {{/each}}
+</section>
+</div>
+
