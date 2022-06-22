@@ -11,7 +11,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 //Connect to MongoDB using Mongoose
-import { dbURL } from './.config';
+var dbURL = require('./.config');
 var mongoose = require('mongoose');
 var mongoDB = dbURL;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
