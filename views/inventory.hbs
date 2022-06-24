@@ -24,7 +24,7 @@
   <ul>
     <li>All</li>
     {{#each categories}}
-    <li>{{this}}</li>
+    <li>{{this.name}}</li>
     {{/each}}
   </ul>
 </section>
@@ -32,8 +32,8 @@
 <section id="item-viewer">
 
 
-  <h1>Viewing {{currentCategory}}</h1>
-  <h2>Viewing 3 out of {{number_of_items}} items</h2>
+  <h1>Viewing {{current_category}}</h1>
+  <h2>{{number_of_items}} items in this category</h2>
   
   {{#each items}}
   <div class="item hflex">
@@ -43,7 +43,7 @@
     <div>
  <p>Product Name: {{this.productname}}</p>
     <p>ID: {{this.id}}</p>
-    <p>Category: {{this.category}}</p>
+    <p>Category: {{#each this.category}} {{this.name}} {{/each}}</p>
     <p>Price: {{this.price}}</p>
     <p>Stock: {{this.stock}}</p>
     <a href="">Edit</a>
