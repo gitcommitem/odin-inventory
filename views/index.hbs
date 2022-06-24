@@ -15,13 +15,21 @@
 </nav>
 
 <section class="hflex" id="dashboard">
-{{#each metrics}}
 <div class="card">
-  <p>{{this.label}}</p>
-  <p class="count">{{this.count}}</p>
+  <p>Number of Items</p>
+  <p class="count">{{data.item_count}}</p>
 </div>
-{{else}}
-<p>Not able to load metrics.</p>
-{{/each}}
+<div class="card">
+  <p>Low stock items</p>
+  <p class="count">{{data.low_stock_count}}</p>
+</div>
+<div class="card">
+  <p>Out of stock items</p>
+  <p class="count">{{data.out_of_stock_count}}</p>
+</div>
+<div class="card">
+  <p>Number of Categories</p>
+  <p class="count">{{data.category_count}}</p>
+</div>
 </section>
 
