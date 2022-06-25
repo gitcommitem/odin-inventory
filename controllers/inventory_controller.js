@@ -35,3 +35,11 @@ exports.index = function (req, res) {
     }
   );
 };
+
+exports.newitem = function (req, res) {
+  res.render('newitem');
+};
+
+exports.newcategory = function (req, res) {
+  res.render('newcategory');
+};
