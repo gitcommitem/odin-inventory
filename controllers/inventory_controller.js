@@ -3,6 +3,8 @@ var async = require('async');
 var Category = require('../models/category');
 var Item = require('../models/item');
 
+const { body, validationResult } = require('express-validator');
+
 exports.index = function (req, res) {
   async.parallel(
     {
@@ -36,7 +38,7 @@ exports.index = function (req, res) {
   );
 };
 
-exports.newitem = function (req, res) {
+exports.newitem_get = function (req, res) {
   async.parallel(
     {
       category_list: function (callback) {
@@ -54,7 +56,7 @@ exports.newitem = function (req, res) {
   );
 };
 
-exports.newcategory = function (req, res) {
+exports.newcategory_get = function (req, res) {
   async.parallel(
     {
       category_list: function (callback) {
@@ -71,3 +73,51 @@ exports.newcategory = function (req, res) {
     }
   );
 };
+
+exports.newcategory_post = [
+  // Validate and sanitize the name field.
+  body('name', 'Category name required')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create a genre object with escaped and trimmed data.
+    var category = new Category({ name: req.body.name });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render the form again with sanitized values/error messages.
+      res.render('newcategory', {
+        errors: errors.array()
+      });
+      return;
+    } else {
+      // Data from form is valid.
+      // Check if Category with same name already exists.
+      Category.findOne({ name: req.body.name }).exec(function (
+        err,
+        found_category
+      ) {
+        if (err) {
+          return next(err);
+        }
+
+        if (found_category) {
+          alert('This category already exists.');
+        } else {
+          category.save(function (err) {
+            if (err) {
+              return next(err);
+            }
+            // Category saved. Redirect.
+            res.redirect('/inventory/');
+          });
+        }
+      });
+    }
+  }
+];

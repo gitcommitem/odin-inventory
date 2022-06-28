@@ -6,7 +6,9 @@ var inventory_controller = require('../controllers/inventory_controller');
 /* GET home page. */
 router.get('/', inventory_controller.index);
 
-router.get('/new-item', inventory_controller.newitem);
-router.get('/new-category', inventory_controller.newcategory);
+router.get('/new-item', inventory_controller.newitem_get);
+router.get('/new-category', inventory_controller.newcategory_get);
+
+router.post('/new-category', inventory_controller.newcategory_post);
 
 module.exports = router;
