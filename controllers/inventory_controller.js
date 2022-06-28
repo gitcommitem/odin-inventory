@@ -37,9 +37,37 @@ exports.index = function (req, res) {
 };
 
 exports.newitem = function (req, res) {
-  res.render('newitem');
+  async.parallel(
+    {
+      category_list: function (callback) {
+        Category.find({}, callback);
+      }
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      res.render('newitem', {
+        categories: results.category_list
+      });
+    }
+  );
 };
 
 exports.newcategory = function (req, res) {
-  res.render('newcategory');
+  async.parallel(
+    {
+      category_list: function (callback) {
+        Category.find({}, callback);
+      }
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      res.render('newcategory', {
+        categories: results.category_list
+      });
+    }
+  );
 };

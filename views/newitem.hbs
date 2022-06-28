@@ -1,1 +1,18 @@
 {{> nav}}
+
+<div class="hflex">
+  {{> sidebar}}
+  <section class="form">
+    <form class="vflex">
+      <label for="productname">Product Name</label>
+      <input type="text" id="productname"/>
+      <label for="category">Category</label>
+      <input type="text" id="category"/>
+      <label for="price">Price</label>
+      <input type="number" id="price"/>
+      <label for="stock">Stock</label>
+      <input type="number" id="stock"/>
+      <button type="submit">Create new item</button>
+    </form>
+  </section>
+</div>

@@ -22,6 +22,11 @@ ul {
   display: flex;
 }
 
+.vflex {
+  display: flex;
+  flex-direction: column;
+}
+
 div#page-cont {
   width: 95vw;
   margin-left: auto;
@@ -125,4 +130,10 @@ div.card {
 
 p.count {
   font-size: 3rem;
+}
+
+section.form {
+  flex-grow: 4;
+  flex-shrink: 1;
+  flex-basis: 65ch;
 }
