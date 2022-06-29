@@ -56,6 +56,80 @@ exports.newitem_get = function (req, res) {
   );
 };
 
+exports.newitem_post = [
+  // Convert the category to an array.
+  (req, res, next) => {
+    if (!(req.body.category instanceof Array)) {
+      if (typeof req.body.category === 'undefined') req.body.category = [];
+      else req.body.category = new Array(req.body.category);
+    }
+    next();
+  },
+
+  // Validate and sanitize fields.
+  body('productname', 'Product name must not be empty.')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('category.*', 'Category must not be empty.').escape(),
+  body('price', 'Price must not be empty.')
+    .trim()
+    .isNumeric()
+    .escape(),
+  body('stock', 'Stock must not be empty')
+    .trim()
+    .isNumeric()
+    .escape(),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create an Item object with escaped and trimmed data.
+    var item = new Item({
+      productname: req.body.productname,
+      category: req.body.category,
+      price: req.body.price,
+      stock: req.body.stock
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/error messages.
+      const stringError = new Error(JSON.stringify(errors.array()));
+
+      // Get categories for form to show on re-rendered form.
+      async.parallel(
+        {
+          category_list: function (callback) {
+            Category.find({}, callback);
+          }
+        },
+        function (err, results) {
+          if (err) {
+            return next(err);
+          }
+
+          res.render('newitem', {
+            categories: results.category_list,
+            errors: stringError
+          });
+        }
+      );
+      return;
+    } else {
+      // Data from form is valid. Save item.
+      item.save(function (err) {
+        if (err) {
+          return next(err);
+        }
+        //successful - redirect.
+        res.redirect('/inventory/');
+      });
+    }
+  }
+];
+
 exports.newcategory_get = function (req, res) {
   async.parallel(
     {

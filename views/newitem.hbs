@@ -3,15 +3,20 @@
 <div class="hflex">
   {{> sidebar}}
   <section class="form">
-    <form class="vflex">
+    {{errors}}
+    <form class="vflex" method="POST" action="./new-item">
       <label for="productname">Product Name</label>
-      <input type="text" id="productname"/>
+      <input type="text" id="productname" name="productname"/>
       <label for="category">Category</label>
-      <input type="text" id="category"/>
+      <select id="category" name="category">
+        {{#each categories}}
+        <option value={{this.id}}>{{this.name}}</option>
+        {{/each}}
+      </select>
       <label for="price">Price</label>
-      <input type="number" id="price"/>
+      <input type="number" id="price" name="price"/>
       <label for="stock">Stock</label>
-      <input type="number" id="stock"/>
+      <input type="number" id="stock" name="stock"/>
       <button type="submit">Create new item</button>
     </form>
   </section>
