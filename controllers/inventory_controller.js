@@ -130,6 +130,15 @@ exports.newitem_post = [
   }
 ];
 
+exports.item_delete_post = function (req, res, next) {
+  Item.findByIdAndDelete(req.body.id, function deleteItem (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/inventory/');
+  });
+};
+
 exports.newcategory_get = function (req, res) {
   async.parallel(
     {
