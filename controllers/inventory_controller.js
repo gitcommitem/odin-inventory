@@ -135,6 +135,9 @@ exports.item_update_get = function (req, res) {
     {
       category_list: function (callback) {
         Category.find({}, callback);
+      },
+      item: function (callback) {
+        Item.findById(req.params.id, callback).populate('category');
       }
     },
     function (err, results) {
@@ -142,7 +145,9 @@ exports.item_update_get = function (req, res) {
         return next(err);
       }
       res.render('newitem', {
-        categories: results.category_list
+        categories: results.category_list,
+        update: true,
+        item: results.item
       });
     }
   );

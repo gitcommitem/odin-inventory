@@ -23,6 +23,15 @@ var hbs = require('hbs');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerHelper('eq', function (a, b) {
+  if (a === b) {
+    return true;
+  } else {
+    console.log(a);
+    console.log(b);
+    return false;
+  }
+});
 
 app.use(logger('dev'));
 app.use(express.json());

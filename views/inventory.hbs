@@ -20,7 +20,7 @@
     <p>Category: {{#each this.category}} {{this.name}} {{/each}}</p>
     <p>Price: {{this.price}}</p>
     <p>Stock: {{this.stock}}</p>
-    <a href="./update-item/{{this.id}}" data-id={{this.id}}>Edit</a>
+    <a href="./update-item/{{this.id}}">Edit</a>
     <form method="POST" action="./delete-item">
     <input type="hidden" name="id" value={{this.id}}>
     <button class="link-button" type="submit">Delete</button>
