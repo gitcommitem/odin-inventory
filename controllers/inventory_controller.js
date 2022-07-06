@@ -130,6 +130,24 @@ exports.newitem_post = [
   }
 ];
 
+exports.item_update_get = function (req, res) {
+  async.parallel(
+    {
+      category_list: function (callback) {
+        Category.find({}, callback);
+      }
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      res.render('newitem', {
+        categories: results.category_list
+      });
+    }
+  );
+};
+
 exports.item_delete_post = function (req, res, next) {
   Item.findByIdAndDelete(req.body.id, function deleteItem (err) {
     if (err) {
