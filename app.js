@@ -27,8 +27,6 @@ hbs.registerHelper('eq', function (a, b) {
   if (a === b) {
     return true;
   } else {
-    console.log(a);
-    console.log(b);
     return false;
   }
 });
