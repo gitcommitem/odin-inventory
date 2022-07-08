@@ -1,5 +1,5 @@
  {{#if update}}
-  <form class="vflex" method="POST" action="../update-item/{{item.id}}">
+  <form class="vflex" method="POST" action="/inventory/update-item/{{item.id}}">
     <label for="productname">Product Name</label>
     <input type="text" id="productname" name="productname" value="{{item.productname}}">
         <label for="category">Category</label>
@@ -19,7 +19,7 @@
         <button type="submit">Update item</button>
   </form>
   {{else}}
-   <form class="vflex" method="POST" action="./new-item">
+   <form class="vflex" method="POST" action="/inventory/new-item">
        <label for="productname">Product Name</label>
       <input type="text" id="productname" name="productname"/>
       <label for="category">Category</label>
