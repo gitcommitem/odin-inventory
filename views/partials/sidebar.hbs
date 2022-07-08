@@ -1,13 +1,13 @@
 <section id="sidebar">
   <ul class="stack">
-    <li><a class="button-link" href="./new-category">Add new category</a></li>
-    <li><a class="button-link" href="./new-item">Add new item</a></li>
+    <li><a class="button-link" href="/inventory/new-category">Add new category</a></li>
+    <li><a class="button-link" href="/inventory/new-item">Add new item</a></li>
   </ul>
 
   <ul>
-    <li>All</li>
+    <li><a href="/inventory/">All</a></li>
     {{#each categories}}
-    <li>{{this.name}}</li>
+    <li><a href="/inventory/category/{{this.id}}">{{this.name}}</a></li>
     {{/each}}
   </ul>
 </section>

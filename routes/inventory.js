@@ -5,6 +5,7 @@ var inventory_controller = require('../controllers/inventory_controller');
 
 /* GET home page. */
 router.get('/', inventory_controller.index);
+router.get('/category/:id', inventory_controller.category);
 
 router.get('/new-item', inventory_controller.newitem_get);
 router.get('/new-category', inventory_controller.newcategory_get);

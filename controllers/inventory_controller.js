@@ -38,6 +38,42 @@ exports.index = function (req, res) {
   );
 };
 
+exports.category = function (req, res) {
+  async.parallel(
+    {
+      item_count: function (callback) {
+        Item.countDocuments({ category: req.params.id }, callback);
+      },
+      item_list: function (callback) {
+        Item.find({ category: req.params.id }, callback).populate('category');
+      },
+      category_list: function (callback) {
+        Category.find({}, callback);
+      },
+      current_category: function (callback) {
+        Category.find({ _id: req.params.id }, callback);
+      }
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+
+      if (results.item_list === null) {
+        var err = new Error('No items found');
+        err.status = 404;
+        return next(err);
+      }
+      res.render('inventory', {
+        categories: results.category_list,
+        items: results.item_list,
+        current_category: results.current_category[0].name,
+        number_of_items: results.item_count
+      });
+    }
+  );
+};
+
 exports.newitem_get = function (req, res) {
   async.parallel(
     {
