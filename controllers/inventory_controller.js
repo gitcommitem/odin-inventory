@@ -74,6 +74,53 @@ exports.category = function (req, res) {
   );
 };
 
+exports.search_post = [
+  //Validate and sanitize search item
+  body('search', 'Search for product name')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+  function (req, res, next) {
+    async.parallel(
+      {
+        item_count: function (callback) {
+          Item.countDocuments(
+            { productname: { $regex: req.body.search, $options: 'i' } },
+            callback
+          );
+        },
+        item_list: function (callback) {
+          Item.find(
+            { productname: { $regex: req.body.search, $options: 'i' } },
+            callback
+          ).populate('category');
+        },
+        category_list: function (callback) {
+          Category.find({}, callback);
+        }
+      },
+      function (err, results) {
+        if (err) {
+          return next(err);
+        }
+
+        if (results.item_list === null) {
+          var err = new Error('No items found');
+          err.status = 404;
+          return next(err);
+        }
+        res.render('inventory', {
+          categories: results.category_list,
+          items: results.item_list,
+          current_category: `search results for ${req.body.search}`,
+          number_of_items: results.item_count
+        });
+      }
+    );
+  }
+];
+
 exports.newitem_get = function (req, res) {
   async.parallel(
     {

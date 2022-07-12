@@ -15,5 +15,6 @@ router.post('/new-item', inventory_controller.newitem_post);
 router.post('/delete-item', inventory_controller.item_delete_post);
 router.post('/update-item/:id', inventory_controller.item_update_post);
 router.post('/new-category', inventory_controller.newcategory_post);
+router.post('/search', inventory_controller.search_post);
 
 module.exports = router;
