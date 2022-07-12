@@ -82,6 +82,13 @@ exports.search_post = [
     .escape(),
 
   function (req, res, next) {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      // Search field is empty, redirect to inventory page / do not search
+      res.redirect('/inventory/');
+    }
+
     async.parallel(
       {
         item_count: function (callback) {
@@ -113,7 +120,7 @@ exports.search_post = [
         res.render('inventory', {
           categories: results.category_list,
           items: results.item_list,
-          current_category: `search results for ${req.body.search}`,
+          current_category: `search results for "${req.body.search}"`,
           number_of_items: results.item_count
         });
       }
