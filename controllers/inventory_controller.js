@@ -65,9 +65,10 @@ exports.category = function (req, res) {
         return next(err);
       }
       res.render('inventory', {
+        category_view: true,
         categories: results.category_list,
         items: results.item_list,
-        current_category: results.current_category[0].name,
+        current_category: results.current_category,
         number_of_items: results.item_count
       });
     }
@@ -332,7 +333,7 @@ exports.item_delete_post = function (req, res, next) {
   });
 };
 
-exports.newcategory_get = function (req, res) {
+exports.category_new_get = function (req, res) {
   async.parallel(
     {
       category_list: function (callback) {
@@ -343,14 +344,14 @@ exports.newcategory_get = function (req, res) {
       if (err) {
         return next(err);
       }
-      res.render('newcategory', {
+      res.render('categoryform', {
         categories: results.category_list
       });
     }
   );
 };
 
-exports.newcategory_post = [
+exports.category_new_post = [
   // Validate and sanitize the name field.
   body('name', 'Category name required')
     .trim()
@@ -362,12 +363,12 @@ exports.newcategory_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    // Create a genre object with escaped and trimmed data.
+    // Create a category object with escaped and trimmed data.
     var category = new Category({ name: req.body.name });
 
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values/error messages.
-      res.render('newcategory', {
+      res.render('categoryform', {
         errors: errors.array()
       });
       return;
@@ -383,7 +384,7 @@ exports.newcategory_post = [
         }
 
         if (found_category) {
-          alert('This category already exists.');
+          res.redirect(`/inventory/category/${found_category.id}`);
         } else {
           category.save(function (err) {
             if (err) {
@@ -397,3 +398,86 @@ exports.newcategory_post = [
     }
   }
 ];
+
+exports.category_update_get = function (req, res) {
+  async.parallel(
+    {
+      category_list: function (callback) {
+        Category.find({}, callback);
+      },
+      category: function (callback) {
+        Category.findById(req.params.id, callback);
+      }
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      res.render('categoryform', {
+        categories: results.category_list,
+        update: true,
+        category: results.category
+      });
+    }
+  );
+};
+
+exports.category_update_post = [
+  // Validate and sanitize the name field.
+  body('name', 'Category name required')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+  // Process request after validation and sanitization.
+  (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Update category
+    var category = new Category({ name: req.body.name, _id: req.params.id });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render the form again with sanitized values/error messages.
+      res.render('categoryform', {
+        errors: errors.array()
+      });
+      return;
+    } else {
+      // Data from form is valid.
+      // Check if Category with same name already exists.
+      Category.findOne({ name: req.body.name }).exec(function (
+        err,
+        found_category
+      ) {
+        if (err) {
+          return next(err);
+        }
+
+        if (found_category) {
+          res.redirect(`/inventory/category/${found_category.id}`);
+        } else {
+          // Data from form is valid. Save item.
+          Category.findByIdAndUpdate(req.params.id, category, {}, function (
+            err
+          ) {
+            if (err) {
+              return next(err);
+            }
+            //successful - redirect.
+            res.redirect('/inventory/');
+          });
+        }
+      });
+    }
+  }
+];
+
+exports.category_delete_post = function (req, res, next) {
+  Category.findByIdAndDelete(req.body.id, function deleteItem (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/inventory/');
+  });
+};

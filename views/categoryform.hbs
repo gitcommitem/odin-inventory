@@ -1,0 +1,28 @@
+{{> nav}}
+
+
+<div class="hflex">
+  {{> sidebar}}
+ 
+  <section class="form">
+     {{#if update}}
+    <form class="vflex" method="POST" action="/inventory/update-category/{{category.id}}">
+    {{#each errors}}
+    <div>{{this}}</div>
+    {{/each}}
+       <label for="name">Category Name</label>
+      <input type="text" id="name" name="name" value={{category.name}}>
+      <button type="submit">Update category</button>
+    </form>
+    {{else}}
+    <form class="vflex" method="POST" action="/inventory/new-category">
+    {{#each errors}}
+    <div>{{this}}</div>
+    {{/each}}
+       <label for="name">Category Name</label>
+      <input type="text" id="name" name="name"/>
+      <button type="submit">Create new category</button>
+    </form>
+    {{/if}}
+  </section>
+</div>
