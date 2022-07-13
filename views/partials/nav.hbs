@@ -8,8 +8,13 @@
     </form>
     </div>
     <ul class="hflex">
-      <li><a href="/">Dashboard</a></li>
+      {{#if isDashboard}}
+      <li><a class="active-tab" href="/">Dashboard</a></li>
+      <li><a class="" href="/inventory/">Inventory</a></li>
+      {{else}}
+        <li><a class="" href="/">Dashboard</a></li>
       <li><a class="active-tab" href="/inventory/">Inventory</a></li>
+      {{/if}}
     </ul>
   </div>
 </nav>

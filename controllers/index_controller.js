@@ -20,7 +20,7 @@ exports.index = function (req, res) {
       }
     },
     function (err, results) {
-      res.render('index', { error: err, data: results });
+      res.render('index', { error: err, data: results, isDashboard: true });
     }
   );
 };
