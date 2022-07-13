@@ -8,7 +8,11 @@ var indexRouter = require('./routes/index');
 var inventoryRouter = require('./routes/inventory');
 var usersRouter = require('./routes/users');
 
+var compression = require('compression');
+var helmet = require('helmet');
+
 var app = express();
+app.use(helmet());
 
 //Connect to MongoDB using Mongoose
 var dbURL = require('./.config');
@@ -30,6 +34,8 @@ hbs.registerHelper('eq', function (a, b) {
     return false;
   }
 });
+
+app.use(compression());
 
 app.use(logger('dev'));
 app.use(express.json());
