@@ -12,12 +12,12 @@ var compression = require('compression');
 var helmet = require('helmet');
 
 var app = express();
-app.use(helmet());
 
 //Connect to MongoDB using Mongoose
-var dbURL = require('./.config');
+var devDbURL = require('./.config');
+var dbURL = process.env.MONGODB_URI;
 var mongoose = require('mongoose');
-var mongoDB = dbURL;
+var mongoDB = dbURL || devDbURL;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
