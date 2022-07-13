@@ -4,6 +4,10 @@
   {{> sidebar}}
   <section class="form">
     {{errors}}
-     {{> itemform}}
+    {{#if isCategory}}
+      {{> categoryform}}
+    {{else}}
+      {{> itemform}}
+    {{/if}}
   </section>
 </div>

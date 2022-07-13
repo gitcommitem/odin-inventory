@@ -140,7 +140,7 @@ exports.newitem_get = function (req, res) {
       if (err) {
         return next(err);
       }
-      res.render('newitem', {
+      res.render('form', {
         categories: results.category_list
       });
     }
@@ -201,7 +201,7 @@ exports.newitem_post = [
             return next(err);
           }
 
-          res.render('newitem', {
+          res.render('form', {
             categories: results.category_list,
             errors: stringError
           });
@@ -235,7 +235,7 @@ exports.item_update_get = function (req, res) {
       if (err) {
         return next(err);
       }
-      res.render('newitem', {
+      res.render('form', {
         categories: results.category_list,
         update: true,
         item: results.item
@@ -302,7 +302,7 @@ exports.item_update_post = [
             return next(err);
           }
 
-          res.render('newitem', {
+          res.render('form', {
             categories: results.category_list,
             errors: stringError,
             update: true,
@@ -344,8 +344,9 @@ exports.category_new_get = function (req, res) {
       if (err) {
         return next(err);
       }
-      res.render('categoryform', {
-        categories: results.category_list
+      res.render('form', {
+        categories: results.category_list,
+        isCategory: true
       });
     }
   );
@@ -367,10 +368,25 @@ exports.category_new_post = [
     var category = new Category({ name: req.body.name });
 
     if (!errors.isEmpty()) {
+      const stringError = new Error(JSON.stringify(errors.array()));
       // There are errors. Render the form again with sanitized values/error messages.
-      res.render('categoryform', {
-        errors: errors.array()
-      });
+      async.parallel(
+        {
+          category_list: function (callback) {
+            Category.find({}, callback);
+          }
+        },
+        function (err, results) {
+          if (err) {
+            return next(err);
+          }
+          res.render('form', {
+            errors: stringError,
+            categories: results.category_list,
+            isCategory: true
+          });
+        }
+      );
       return;
     } else {
       // Data from form is valid.
@@ -413,10 +429,11 @@ exports.category_update_get = function (req, res) {
       if (err) {
         return next(err);
       }
-      res.render('categoryform', {
+      res.render('form', {
         categories: results.category_list,
         update: true,
-        category: results.category
+        category: results.category,
+        isCategory: true
       });
     }
   );
@@ -438,10 +455,30 @@ exports.category_update_post = [
     var category = new Category({ name: req.body.name, _id: req.params.id });
 
     if (!errors.isEmpty()) {
+      const stringError = new Error(JSON.stringify(errors.array()));
       // There are errors. Render the form again with sanitized values/error messages.
-      res.render('categoryform', {
-        errors: errors.array()
-      });
+      async.parallel(
+        {
+          category_list: function (callback) {
+            Category.find({}, callback);
+          },
+          category: function (callback) {
+            Category.findById(req.params.id, callback);
+          }
+        },
+        function (err, results) {
+          if (err) {
+            return next(err);
+          }
+          res.render('form', {
+            errors: stringError,
+            categories: results.category_list,
+            update: true,
+            category: results.category,
+            isCategory: true
+          });
+        }
+      );
       return;
     } else {
       // Data from form is valid.

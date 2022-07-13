@@ -1,10 +1,3 @@
-{{> nav}}
-
-
-<div class="hflex">
-  {{> sidebar}}
- 
-  <section class="form">
      {{#if update}}
     <form class="vflex" method="POST" action="/inventory/update-category/{{category.id}}">
     {{#each errors}}
@@ -24,5 +17,4 @@
       <button type="submit">Create new category</button>
     </form>
     {{/if}}
-  </section>
-</div>
+
