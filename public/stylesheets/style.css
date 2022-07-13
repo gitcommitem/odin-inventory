@@ -10,9 +10,14 @@
 
 :root,
 button,
-input {
+input,
+select {
   font-family: 'Roboto', arial, sans-serif;
   font-size: 1rem;
+}
+
+* {
+  color: #102a43;
 }
 
 /* Box sizing rules */
@@ -32,8 +37,13 @@ p {
   margin: 0;
 }
 
-a {
-  color: black;
+div.result-info {
+  gap: 1rem;
+}
+
+a,
+.link-button {
+  color: #0a558c;
 }
 
 /* Set core body defaults */
@@ -41,7 +51,7 @@ body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
-  background-color: #f5f5f5;
+  background-color: #f0f4f8;
   overflow-x: hidden;
 }
 
@@ -82,7 +92,7 @@ ul.hflex {
 a.active-tab {
   background-color: white;
   padding-top: 1rem;
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
   padding-left: 1rem;
   padding-right: 1rem;
   border-radius: 0.5rem 0.5rem 0rem 0;
@@ -100,17 +110,27 @@ div#search-cont {
   width: 55%;
 }
 
+select,
 input {
-  width: 90%;
+  width: 100%;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  background-color: #d9e2ec;
   border: 1px solid rgba(0, 0, 0, 0.08);
+  margin-top: 0.5rem;
+}
+
+input:focus {
+  background-color: white;
 }
 
 section#sidebar {
-  flex: 1;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 25ch;
 }
 
+section.form,
 section#item-viewer {
   flex-grow: 3;
   flex-shrink: 1;
@@ -118,36 +138,37 @@ section#item-viewer {
   background-color: white;
   padding: 2rem;
   border-top-left-radius: 1rem;
+  min-height: 92vh;
 }
 
-a.button-link {
-  background-color: darkorange;
-  padding: 0.8rem;
+a.button-link,
+button {
+  background-color: #f7c948;
+  padding: 0.58rem 0.8rem;
   border-radius: 0.5rem;
-  color: black;
   text-decoration: none;
+  color: #8d2b0b;
+  border: 0;
 }
 
 .stack > * {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 div.item {
-  margin-left: 2rem;
   gap: 1.5rem;
-}
-
-hr {
-  opacity: 0.2;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 img {
-  background-color: whitesmoke;
+  background-color: #bcccdc;
   display: inline-block;
   width: 200px;
   height: 200px;
   text-align: center;
   line-height: 12;
+  border-radius: 0.5rem;
 }
 
 section#dashboard {
@@ -155,7 +176,7 @@ section#dashboard {
   align-items: center;
   gap: 1rem;
   background-color: white;
-  min-height: 100vh;
+  min-height: 92vh;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
   padding: 2rem;
@@ -167,7 +188,7 @@ div.card {
   background-color: white;
   border-radius: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 3px 10px #102a4321;
   text-align: center;
 }
 
@@ -175,15 +196,51 @@ p.count {
   font-size: 3rem;
 }
 
-section.form {
-  flex-grow: 4;
-  flex-shrink: 1;
-  flex-basis: 65ch;
-}
-
 button.link-button {
   border: 0;
   background-color: inherit;
   text-decoration: underline;
   cursor: pointer;
+}
+
+div.edit {
+  align-items: baseline;
+}
+
+form.search > div.hflex {
+  align-items: center;
+}
+
+div#search-input {
+  flex-grow: 6;
+  flex-shrink: 1;
+  flex-basis: auto;
+}
+
+div#search-button {
+  flex: 1;
+}
+
+div#search-input > input {
+  margin-top: 0;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+div#search-button > button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form {
+  width: 55ch;
+}
+
+hr {
+  border: 1px dotted #d9e2ec;
+}
+
+h1#logo,
+h2 {
+  font-size: 1.2rem;
 }

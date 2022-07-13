@@ -10,7 +10,7 @@ exports.index = function (req, res) {
         Item.estimatedDocumentCount({}, callback);
       },
       low_stock_count: function (callback) {
-        Item.countDocuments({ stock: { $lt: 10 } }, callback);
+        Item.countDocuments({ stock: { $lt: 10, $gt: 0 } }, callback);
       },
       out_of_stock_count: function (callback) {
         Item.countDocuments({ stock: 0 }, callback);

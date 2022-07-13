@@ -1,10 +1,12 @@
 <nav>
   <div class="hflex" id="nav-cont">
-    <h1>Inventory Management</h1>
+    <h1 id="logo">Inventory Manager</h1>
     <div id="search-cont">
     <form class="search" method="POST" action="/inventory/search">
-      <input type="text" name="search" placeholder="Search for an product name"/>
-      <button type="submit">Search</button>
+      <div class="hflex">
+        <div id="search-input"><input type="text" name="search" placeholder="Search for a product by name"/></div>
+        <div id="search-button"><button type="submit">Search</button></div>
+      </div>
     </form>
     </div>
     <ul class="hflex">

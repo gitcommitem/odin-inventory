@@ -1,13 +1,17 @@
      {{#if update}}
-    <form class="vflex" method="POST" action="/inventory/update-category/{{category.id}}">
-       <label for="name">Category Name</label>
-      <input type="text" id="name" name="name" value={{category.name}}>
+    <form class="vflex stack form" method="POST" action="/inventory/update-category/{{category.id}}">
+       <div>
+         <label for="name">Category Name</label>
+               <input type="text" id="name" name="name" value={{category.name}}>
+       </div>
       <button type="submit">Update category</button>
     </form>
     {{else}}
-    <form class="vflex" method="POST" action="/inventory/new-category">
-       <label for="name">Category Name</label>
-      <input type="text" id="name" name="name"/>
+    <form class="vflex stack form" method="POST" action="/inventory/new-category">
+       <div>
+         <label for="name">Category Name</label>
+               <input type="text" id="name" name="name"/>
+       </div>
       <button type="submit">Create new category</button>
     </form>
     {{/if}}

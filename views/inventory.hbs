@@ -6,9 +6,9 @@
 <section id="item-viewer">
 
 {{#if category_view}}
-  <div class="hflex">
+  <div class="hflex result-info">
     <h1>Viewing {{current_category.[0].name}}</h1>
-    <div class="hflex">
+    <div class="hflex edit">
     <a href="/inventory/update-category/{{current_category.[0].id}}">Edit</a>
     <form method="POST" action="/inventory/delete-category">
     <input type="hidden" name="id" value={{current_category.[0].id}}>
@@ -16,11 +16,11 @@
     </form>
     </div>
   </div>
-  <h2>{{number_of_items}} items in this category</h2>
+  <h2>{{number_of_items}}</h2>
 
   {{else}}
-    <h1>Viewing {{current_category}}</h1>
-  <h2>{{number_of_items}} items in this category</h2>
+  <h1>Viewing {{current_category}}</h1>
+  <h2>{{number_of_items}}</h2>
 {{/if}}
 
   
@@ -30,18 +30,19 @@
       <img src="{{this.imgsrc}}" alt="{{this.imgalt}}">
     </div>
     <div>
- <p>Product Name: {{this.productname}}</p>
-    <p>ID: {{this.id}}</p>
-    <p>Category: {{#each this.category}} {{this.name}} {{/each}}</p>
-    <p>Price: {{this.price}}</p>
-    <p>Stock: {{this.stock}}</p>
-    <a href="/inventory/update-item/{{this.id}}">Edit</a>
-    <form method="POST" action="/inventory/delete-item">
-    <input type="hidden" name="id" value={{this.id}}>
-    <button class="link-button" type="submit">Delete</button>
-    </form>
+      <p>Product Name: {{this.productname}}</p>
+      <p>ID: {{this.id}}</p>
+      <p>Category: {{#each this.category}} {{this.name}} {{/each}}</p>
+      <p>Price: {{this.price}}</p>
+      <p>Stock: {{this.stock}}</p>
+      <div class="hflex edit">
+        <a href="/inventory/update-item/{{this.id}}">Edit</a>
+        <form method="POST" action="/inventory/delete-item">
+          <input type="hidden" name="id" value={{this.id}}>
+          <button class="link-button" type="submit">Delete</button>
+        </form>
+      </div>
     </div>
-   
   </div>
   <hr>
   {{else}}

@@ -32,7 +32,7 @@ exports.index = function (req, res) {
         categories: results.category_list,
         items: results.item_list,
         current_category: 'All',
-        number_of_items: results.item_count
+        number_of_items: `${results.item_count} items found in this category`
       });
     }
   );
@@ -69,7 +69,7 @@ exports.category = function (req, res) {
         categories: results.category_list,
         items: results.item_list,
         current_category: results.current_category,
-        number_of_items: results.item_count
+        number_of_items: `${results.item_count} items found in this category`
       });
     }
   );
@@ -122,7 +122,7 @@ exports.search_post = [
           categories: results.category_list,
           items: results.item_list,
           current_category: `search results for "${req.body.search}"`,
-          number_of_items: results.item_count
+          number_of_items: `${results.item_count} items found for this search`
         });
       }
     );
