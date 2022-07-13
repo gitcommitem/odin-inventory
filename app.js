@@ -13,6 +13,8 @@ var helmet = require('helmet');
 
 var app = express();
 
+app.use(helmet());
+
 //Connect to MongoDB using Mongoose
 var devDbURL = require('./.config');
 var dbURL = process.env.MONGODB_URI;
